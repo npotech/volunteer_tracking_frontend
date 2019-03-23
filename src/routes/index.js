@@ -1,22 +1,12 @@
 import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import { Link } from 'react-router-dom'
 import logo from '../images/logo.png'
-
-const styles = {
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: '100vh',
-    width: 'max-content',
-    margin: '0 auto'
-  }
-}
+import CenteredContainer from '../components/CenteredContainer'
+import { Link } from 'react-router-dom'
 
 const Home = () => (
-  <div style={styles.container}>
+  <CenteredContainer>
     <Grid container spacing={16}>
       <Grid item xs={12}>
         <img src={logo} />
@@ -32,12 +22,17 @@ const Home = () => (
         </Button>
       </Grid>
       <Grid item xs={6}>
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          component={Link}
+          to="/sign-out"
+        >
           Sign out
         </Button>
       </Grid>
     </Grid>
-  </div>
+  </CenteredContainer>
 )
 
 export default Home
