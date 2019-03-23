@@ -61,3 +61,12 @@ typings/
 .next
 
 dist/
+
+# IntelliJ
+.idea
+
+# Vim
+**/*.sw[po]
+
+# macOS
+.DS_Store
