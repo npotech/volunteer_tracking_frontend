@@ -1,8 +1,14 @@
+import generateId from '../utils/generateId'
+
 const resolvers = {
-  Query: {
-    form: () => ({
-      name: 'The local form',
-      __typename: 'Form'
+  Mutation: {
+    createVolunteer: (_, { input }, { cache }) => ({
+      volunteer: {
+        ...input,
+        id: generateId(),
+        __typename: 'Volunteer'
+      },
+      __typename: 'CreateVolunteerPayload'
     })
   }
 }

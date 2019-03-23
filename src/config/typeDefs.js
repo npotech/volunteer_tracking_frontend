@@ -1,12 +1,29 @@
 import gql from 'graphql-tag'
 
 const typeDefs = gql`
-  extend type Query {
-    form: Form
+  extend type Mutation {
+    createVolunteer(input: CreateVolunteerInput!): CreateVolunteerPayload
   }
 
-  type Form {
-    name: String!
+  input CreateVolunteerInput {
+    email: String!
+    firstName: String!
+    lastName: String!
+    title: String
+    phoneNumber: String
+  }
+
+  type CreateVolunteerPayload {
+    volunteer: Volunteer
+  }
+
+  type Volunteer {
+    id: ID!
+    email: String!
+    firstName: String!
+    lastName: String!
+    title: String
+    phoneNumber: String
   }
 `
 
