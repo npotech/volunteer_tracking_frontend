@@ -20,7 +20,7 @@ const SignIn = ({ classes, history }) => {
         onSubmit={e => {
           e.preventDefault()
           setDirty(true)
-          history.push('/demographic')
+          history.push('/volunteer')
         }}
       >
         <Grid item xs={12}>

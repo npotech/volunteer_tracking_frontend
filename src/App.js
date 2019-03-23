@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route } from 'react-router-dom'
 import Home from './routes/index'
-import Demographic from './routes/demographic'
+import Volunteer from './routes/volunteer'
 import Interest from './routes/interest'
 import SignIn from './routes/sign-in'
 import SignOut from './routes/sign-out'
@@ -12,11 +12,11 @@ export default class App extends Component {
     return (
       <>
         <Route path="/" exact component={Home} />
-        <Route path="/demographic" component={Demographic} />
         <Route path="/sign-in" component={SignIn} />
         <Route path="/sign-out" component={SignOut} />
         <Route path="/thank-you" component={ThankYou} />
         <Route path="/interest" component={Interest} />
+        <Route path="/volunteer" component={Volunteer} />
       </>
     )
   }

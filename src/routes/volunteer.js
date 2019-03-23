@@ -9,7 +9,7 @@ import { Mutation } from 'react-apollo'
 
 const IS_EMAIL = /^.+?@.+?\..+?$/
 
-const Demographic = ({ classes, history }) => {
+const Volunteer = ({ classes, history }) => {
   const [dirty, setDirty] = useState(false)
   const { setValue, ...values } = useFormState({
     email: '',
@@ -217,4 +217,4 @@ const Demographic = ({ classes, history }) => {
   )
 }
 
-export default Demographic
+export default Volunteer
