@@ -1,0 +1,20 @@
+Specifying a Webpage Icon for Web Clip
+
+You may want users to be able to add your web application or webpage link to the Home screen. These links, represented by an icon, are called Web Clips. Follow these simple steps to specify an icon to represent your web application or webpage on iOS.
+
+To specify an icon for the entire website (every page on the website), place an icon file in PNG format in the root document folder called apple-touch-icon.png
+To specify an icon for a single webpage or replace the website icon with a webpage-specific icon, add a link element to the webpage, as in:
+<link rel="apple-touch-icon" href="/custom_icon.png">
+In the above example, replace custom_icon.png with your icon filename.
+To specify multiple icons for different device resolutions—for example, support both iPhone and iPad devices—add a sizes attribute to each link element as follows:
+<link rel="apple-touch-icon" href="touch-icon-iphone.png">
+<link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad.png">
+<link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone-retina.png">
+<link rel="apple-touch-icon" sizes="167x167" href="touch-icon-ipad-retina.png">
+The icon that is the most appropriate size for the device is used. See the “Graphics” chapter of iOS Human Interface Guidelines for current icon sizes and recommendations.
+If there is no icon that matches the recommended size for the device, the smallest icon larger than the recommended size is used. If there are no icons larger than the recommended size, the largest icon is used.
+
+If no icons are specified using a link element, the website root directory is searched for icons with the apple-touch-icon... prefix. For example, if the appropriate icon size for the device is 58 x 58, the system searches for filenames in the following order:
+
+apple-touch-icon-80x80.png
+apple-touch-icon.png
