@@ -10,15 +10,4 @@ export default class App extends Component {
       </>
     )
   }
-
-  renderLater() {
-    return (
-      <main>
-        <Settings />
-        <Logo />
-        <SignInBtn />
-        <SignOutBtn />
-      </main>
-    )
-  }
 }
