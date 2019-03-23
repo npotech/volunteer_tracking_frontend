@@ -2,14 +2,13 @@ import generateId from '../utils/generateId'
 
 const resolvers = {
   Mutation: {
-    createVolunteer: (_, { input }, { cache }) => ({
-      volunteer: {
-        ...input,
-        id: generateId(),
-        __typename: 'Volunteer'
-      },
-      __typename: 'CreateVolunteerPayload'
-    })
+    beginCheckin: (_, { checkin }, { cache }) => {
+      cache.writeData({
+        data: { partialCheckin: { ...checkin, __typename: 'PartialCheckin' } }
+      })
+
+      return { success: true, __typename: 'BeginCheckingPayload' }
+    }
   }
 }
 

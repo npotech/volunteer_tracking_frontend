@@ -1,29 +1,26 @@
 import gql from 'graphql-tag'
 
 const typeDefs = gql`
+  extend type Query {
+    partialCheckin: PartialCheckin
+  }
+
   extend type Mutation {
-    createVolunteer(input: CreateVolunteerInput!): CreateVolunteerPayload
+    beginCheckin(checking: BeginCheckinInput!): BeginCheckinPayload
   }
 
-  input CreateVolunteerInput {
+  input BeginCheckinInput {
     email: String!
-    firstName: String!
-    lastName: String!
-    title: String
-    phoneNumber: String
+    name: String
   }
 
-  type CreateVolunteerPayload {
-    volunteer: Volunteer
+  type BeginCheckinPayload {
+    success: Boolean!
   }
 
-  type Volunteer {
-    id: ID!
+  type PartialCheckin {
     email: String!
-    firstName: String!
-    lastName: String!
-    title: String
-    phoneNumber: String
+    name: String!
   }
 `
 

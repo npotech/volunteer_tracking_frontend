@@ -5,17 +5,31 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import CenteredContainer from '../components/CenteredContainer'
 import useFormState from '../hooks/useFormState'
-import { Mutation } from 'react-apollo'
+import { graphql, Mutation } from 'react-apollo'
 
 const IS_EMAIL = /^.+?@.+?\..+?$/
 
-const Volunteer = ({ classes, history }) => {
+const Volunteer = ({
+  classes,
+  history,
+  partialCheckin: { __typename, ...fields } = {}
+}) => {
   const [dirty, setDirty] = useState(false)
   const { setValue, ...values } = useFormState({
-    email: '',
-    firstName: '',
-    lastName: '',
-    title: ''
+    ...fields,
+    title: '',
+    volunteerStatus: '',
+    phoneNumber: '',
+    address1: '',
+    address2: '',
+    city: '',
+    zipCode: '',
+    county: '',
+    congregation: '',
+    civicOrganization: '',
+    entity: '',
+    employer: '',
+    volunteerLocation: ''
   })
 
   const handleChange = e => setValue(e.target.name, e.target.value)
@@ -61,19 +75,9 @@ const Volunteer = ({ classes, history }) => {
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                label="First Name"
-                name="firstName"
-                value={values.firstName}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Last Name"
-                name="lastName"
-                value={values.lastName}
+                label="Name"
+                name="name"
+                value={values.name}
                 onChange={handleChange}
                 fullWidth
               />
@@ -92,8 +96,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Volunteer status"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="volunteerStatus"
+                value={values.volunteerStatus}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -101,17 +106,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Phone"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Email"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="phoneNumber"
+                value={values.phoneNumber}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -119,8 +116,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Address 1"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="address1"
+                value={values.address1}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -128,8 +126,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Address 2"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="address2"
+                value={values.address2}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -137,8 +136,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="City"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="city"
+                value={values.city}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -146,8 +146,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Zip Code"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="zipCode"
+                value={values.zipCode}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -155,8 +156,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="County"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="county"
+                value={values.county}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -164,8 +166,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Congregation"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="congregation"
+                value={values.congregation}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -173,8 +176,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Civic Organization"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="civicOrganization"
+                value={values.civicOrganization}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -182,8 +186,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Entity"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="entity"
+                value={values.entity}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -191,8 +196,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Employer"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="employer"
+                value={values.employer}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -200,8 +206,9 @@ const Volunteer = ({ classes, history }) => {
               <TextField
                 variant="outlined"
                 label="Volunteer Location"
-                value={values.name}
-                onChange={e => setName(e.target.value)}
+                name="volunteerLocation"
+                value={values.volunteerLocation}
+                onChange={handleChange}
                 fullWidth
               />
             </Grid>
@@ -217,4 +224,18 @@ const Volunteer = ({ classes, history }) => {
   )
 }
 
-export default Volunteer
+export default graphql(
+  gql`
+    query VolunteerQuery {
+      partialCheckin @client {
+        email
+        name
+      }
+    }
+  `,
+  {
+    props: ({ data }) => ({
+      partialCheckin: data.partialCheckin
+    })
+  }
+)(Volunteer)
