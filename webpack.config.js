@@ -1,3 +1,5 @@
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
     entry: './src/index.jsx',
     module: {
@@ -16,5 +18,11 @@ module.exports = {
       path: __dirname + '/dist',
       publicPath: '/',
       filename: 'index.js'
-    }
+    },
+    plugins: [
+      new HtmlWebpackPlugin({
+        title:'Volunteer Checkin',
+        filename: './index.html' 
+      })
+    ]
   };
