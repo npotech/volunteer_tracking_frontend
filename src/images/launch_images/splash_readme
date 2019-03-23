@@ -1,7 +1,0 @@
-Specifying a Launch Screen Image
-
-On iOS, similar to native applications, you can specify a launch screen image that is displayed while your web application launches. This is especially useful when your web application is offline. By default, a screenshot of the web application the last time it was launched is used. To set another startup image, add a link element to the webpage, as in:
-
-<link rel="apple-touch-startup-image" href="/launch.png">
-In the above example, replace launch.png with your startup screen filename. See the “Graphics” chapter of iOS Human Interface Guidelines for current launch screen sizes and recommendations.
-
