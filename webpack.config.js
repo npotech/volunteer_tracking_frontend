@@ -22,8 +22,15 @@ module.exports = {
     plugins: [
       new HtmlWebpackPlugin({
         title:'Volunteer Checkin',
-        template:'./src/index.html',
+        inject:true,
+        template:'src/index.html',
         filename: './index.html' 
-      })
-    ]
+      }),
+      new webpack.HotModuleReplacementPlugin()
+    ],
+    devServer: {
+      contentBase: __dirname + '/dist',
+      compress: true,
+      port: 9000
+    }
   };
