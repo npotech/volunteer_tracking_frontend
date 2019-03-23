@@ -1,4 +1,6 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const webpack = require('webpack')
 
 module.exports = {
@@ -28,7 +30,10 @@ module.exports = {
       template: 'src/index.html',
       filename: './index.html'
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([
+      {from:'src/images',to:'images'} 
+    ])
   ],
   devServer: {
     contentBase: __dirname + '/dist',
