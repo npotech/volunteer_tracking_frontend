@@ -1,4 +1,5 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack')
 
 module.exports = {
     entry: './src/index.jsx',
@@ -24,7 +25,7 @@ module.exports = {
         title:'Volunteer Checkin',
         inject:true,
         template:'src/index.html',
-        filename: './index.html' 
+        filename: './index.html'
       }),
       new webpack.HotModuleReplacementPlugin()
     ],

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo TODO",
     "build": "webpack --mode production",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "start": "npm run dev-server"
   },
   "repository": {
     "type": "git",
