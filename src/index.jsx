@@ -10,10 +10,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from './theme'
 
 import App from './App'
-
-const client = new ApolloClient({
-  uri: '/gql'
-})
+import client from './config/apollo'
 
 ReactDOM.render(
   <ApolloProvider client={client}>
