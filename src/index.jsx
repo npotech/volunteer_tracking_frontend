@@ -1,7 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import ApolloClient from "apollo-boost"
 import { ApolloProvider } from "react-apollo"
+
+import { MuiThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import theme from './theme'
+
+import App from './App'
 
 
 const client = new ApolloClient({
@@ -9,10 +16,12 @@ const client = new ApolloClient({
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <div>
-      <h2>My first Apollo app 🚀</h2>
-    </div>
+  <ApolloProvider client={client}>    
+    <CssBaseline />
+
+    <MuiThemeProvider theme={theme}>
+      <App />
+    </MuiThemeProvider>
   </ApolloProvider>,
   document.getElementById('app')
 )
