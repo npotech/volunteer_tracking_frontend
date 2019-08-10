@@ -1,6 +1,6 @@
 const ThankYou = ({ location }) =>
   location.state.from === '/demographic'
-    ? 'Thank you for submitting'
-    : 'Thank you for signing out'
+    ? 'Thank you for Signing In'
+    : 'Thank you for Signing Out'
 
 export default ThankYou

@@ -1,7 +1,10 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
 import CenteredContainer from '../components/CenteredContainer'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+const Button = styled(Link).attrs({className:'btn btn-primary'})``
+
 
 const SignOut = ({ location }) => (
   <CenteredContainer>

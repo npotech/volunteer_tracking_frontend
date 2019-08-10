@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import FormControl from '@material-ui/core/FormControl'
-import InputLabel from '@material-ui/core/InputLabel'
-import TextField from '@material-ui/core/TextField'
-import FilledInput from '@material-ui/core/FilledInput'
-import Select from '@material-ui/core/Select'
+import styled from 'styled-components'
+
+
 import CenteredContainer from '../components/CenteredContainer'
+
+
+const TextField = styled.input.attrs({className:'form-control'})``
+
+const FormControl = styled.div.attrs({className:'form-group'})``
+
+const InputLabel = styled.label.attrs({className:''})``
+const FilledInput = styled.input.attrs({className:'form-control'})``
+const Select = styled.select.attrs({className:'form-control'})``
+
+
 
 const IS_EMAIL = /^.+?@.+?\..+?$/
 

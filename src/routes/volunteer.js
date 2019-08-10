@@ -1,13 +1,40 @@
 import React, { useState } from 'react'
 import gql from 'graphql-tag'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
 import CenteredContainer from '../components/CenteredContainer'
 import useFormState from '../hooks/useFormState'
 import { graphql, Mutation } from 'react-apollo'
 
+import styled from 'styled-components'
+
+const Grid = styled.div.attrs(props=>({className: 'row' }))``
+const Form = styled.form.attrs(props=>({className:'col-xs' }))``
+const Label = styled.label.attrs({className:'form-label'})`
+  text-transform:capitalize;
+`
+
+const Button = styled.button.attrs({className:'btn btn-primary'})``
+const TextField = styled.input.attrs({className:'form-control'})``
+
 const IS_EMAIL = /^.+?@.+?\..+?$/
+
+
+const field_defaults = {
+  name: '',
+  email: '',
+  title: '',
+  volunteerStatus: '',
+  phoneNumber: '',
+  address1: '',
+  address2: '',
+  city: '',
+  zipCode: '',
+  county: '',
+  congregation: '',
+  civicOrganization: '',
+  entity: '',
+  employer: '',
+  volunteerLocation: ''
+}
 
 const Volunteer = ({
   classes,
@@ -15,24 +42,21 @@ const Volunteer = ({
   partialCheckin: { __typename, ...fields } = {}
 }) => {
   const [dirty, setDirty] = useState(false)
-  const { setValue, ...values } = useFormState({
-    ...fields,
-    title: '',
-    volunteerStatus: '',
-    phoneNumber: '',
-    address1: '',
-    address2: '',
-    city: '',
-    zipCode: '',
-    county: '',
-    congregation: '',
-    civicOrganization: '',
-    entity: '',
-    employer: '',
-    volunteerLocation: ''
-  })
+  const { setValue, ...values } = useFormState(Object.assign({},field_defaults))
 
   const handleChange = e => setValue(e.target.name, e.target.value)
+
+  const field_inputs = Object.keys(field_defaults).map((name)=>((
+    <Grid>
+      <Label>{name.replace(/([A-Z]+)/g, " $1")}</Label>
+      <TextField
+        name={name}
+        value={values[name]}
+        onChange={handleChange}
+        fullWidth
+      />
+    </Grid>
+  )))
 
   return (
     <Mutation
@@ -48,10 +72,7 @@ const Volunteer = ({
     >
       {createVolunteer => (
         <CenteredContainer>
-          <Grid
-            container
-            spacing={16}
-            component="form"
+          <Form
             onSubmit={e => {
               e.preventDefault()
               setDirty(true)
@@ -62,162 +83,13 @@ const Volunteer = ({
               })
             }}
           >
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Email"
-                name="email"
-                value={values.email}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Name"
-                name="name"
-                value={values.name}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Title"
-                name="title"
-                value={values.title}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Volunteer status"
-                name="volunteerStatus"
-                value={values.volunteerStatus}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Phone"
-                name="phoneNumber"
-                value={values.phoneNumber}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Address 1"
-                name="address1"
-                value={values.address1}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Address 2"
-                name="address2"
-                value={values.address2}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="City"
-                name="city"
-                value={values.city}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Zip Code"
-                name="zipCode"
-                value={values.zipCode}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="County"
-                name="county"
-                value={values.county}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Congregation"
-                name="congregation"
-                value={values.congregation}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Civic Organization"
-                name="civicOrganization"
-                value={values.civicOrganization}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Entity"
-                name="entity"
-                value={values.entity}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Employer"
-                name="employer"
-                value={values.employer}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Volunteer Location"
-                name="volunteerLocation"
-                value={values.volunteerLocation}
-                onChange={handleChange}
-                fullWidth
-              />
-            </Grid>
+            {field_inputs}
             <Grid item xs={6}>
-              <Button variant="contained" color="primary" type="submit">
+              <Button type="submit">
                 Submit
               </Button>
             </Grid>
-          </Grid>
+          </Form>
         </CenteredContainer>
       )}
     </Mutation>

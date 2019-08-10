@@ -21,3 +21,5 @@ export default class App extends Component {
     )
   }
 }
+
+import './bootstrap.css'

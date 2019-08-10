@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import prop from '../utils/prop'
 
-const CenteredContainer = styled.div`
+const CenteredContainer = styled.div.attrs(props=>({className: 'container' }))`
   display: flex;
   align-items: center;
   justify-content: center;

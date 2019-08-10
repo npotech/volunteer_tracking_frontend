@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
 import gql from 'graphql-tag'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
+import styled from 'styled-components'
+
+const Grid = styled.div.attrs(props=>({className: 'row' }))``
+const Button = styled.button.attrs({className:'btn btn-primary'})``
+const TextField = styled.input.attrs({className:'form-control'})``
+const Label = styled.label.attrs({className:'form-label'})``
+
+const Form = styled.form.attrs(props=>({className:'col-xs' }))``
+
+
 import CenteredContainer from '../components/CenteredContainer'
 import { Mutation } from 'react-apollo'
 
@@ -27,10 +34,9 @@ const SignIn = ({ classes, history }) => {
     >
       {beginCheckin => (
         <CenteredContainer>
-          <Grid
+          <Form
             container
             spacing={16}
-            component="form"
             onSubmit={e => {
               e.preventDefault()
               setDirty(true)
@@ -40,6 +46,7 @@ const SignIn = ({ classes, history }) => {
             }}
           >
             <Grid item xs={12}>
+              <Label>Email</Label>
               <TextField
                 type="email"
                 variant="outlined"
@@ -52,6 +59,7 @@ const SignIn = ({ classes, history }) => {
               />
             </Grid>
             <Grid item xs={12}>
+              <Label>Name</Label>
               <TextField
                 variant="outlined"
                 label="Name"
@@ -62,11 +70,11 @@ const SignIn = ({ classes, history }) => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button variant="contained" color="primary" type="submit">
+              <Button type="submit">
                 Sign in
               </Button>
             </Grid>
-          </Grid>
+          </Form>
         </CenteredContainer>
       )}
     </Mutation>
