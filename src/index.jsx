@@ -2,28 +2,24 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
 
-import { MuiThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { ThemeProvider } from 'styled-components'
+
+
 import theme from './theme'
 
 import App from './App'
-
-const client = new ApolloClient({
-  uri: '/gql'
-})
+import client from './config/apollo'
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <CssBaseline />
 
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Router>
         <App />
       </Router>
-    </MuiThemeProvider>
+    </ThemeProvider>
   </ApolloProvider>,
   document.getElementById('app')
 )

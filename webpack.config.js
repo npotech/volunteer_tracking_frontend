@@ -12,7 +12,11 @@ module.exports = {
         exclude: /node_modules/,
         use: ['babel-loader']
       },
-      { test: /\.png$/, use: [{ loader: 'file-loader', options: {} }] }
+      { test: /\.png$/, use: [{ loader: 'file-loader', options: {} }] },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
     ]
   },
   resolve: {
