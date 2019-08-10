@@ -12,11 +12,23 @@ const Form = styled.form.attrs(props=>({className:'col-xs' }))``
 
 import CenteredContainer from '../components/CenteredContainer'
 import { Mutation } from 'react-apollo'
+import client from '../config/apollo';
+
+const IsUserKnown = gql`
+  query isUserKnown($email:String!){
+    isUserKnown(email: $email)
+  }`
+
+const createCheckin = gql`
+        
+mutation CheckInMutation($checkin: CheckinInput!) {
+  createCheckin(checkin: $checkin)
+}`
 
 const IS_EMAIL = /^.+?@.+?\..+?$/
-const REPLACE_ME_EVENT_ID = 'testevent'
+const REPLACE_ME_EVENT_ID = 'MyEvent'
 
-const SignIn = ({ classes, history }) => {
+const SignIn = ({classes, history, location }) => {
   const [dirty, setDirty] = useState(false)
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
@@ -25,24 +37,36 @@ const SignIn = ({ classes, history }) => {
   return (
     <Mutation
       mutation={gql`
-        mutation SignInMutation($checkin: BeginCheckinInput!) {
+        mutation BeginSignInMutation($checkin: BeginCheckinInput!) {
           beginCheckin(checkin: $checkin) @client {
             success
           }
         }
       `}
-    >
-      {beginCheckin => (
+    >{(beginCheckin) => 
         <CenteredContainer>
           <Form
             container
             spacing={16}
             onSubmit={e => {
+              console.log('EMAIL',email)
               e.preventDefault()
               setDirty(true)
-              beginCheckin({ variables: { checkin: { email, name } } }).then(
-                () => history.push('/volunteer')
-              )
+              beginCheckin({ variables: { checkin: { email, name } } })
+              .then(()=>(client.query({variables: {email}, query:IsUserKnown})))
+              .then(({data:{isUserKnown}})=>{
+
+                if(true) {
+                  const timestamp = new Date().toISOString()
+                  client.mutate({mutation:createCheckin, variables: { checkin: { email, name, event:eventId, timestamp }}}).then(()=>{
+                    history.push('/thank-you',{from:location.pathname})
+                  })
+
+                } else {
+                  history.push('/volunteer',{from:location.pathname})
+
+                }
+              })
             }}
           >
             <Grid item xs={12}>
@@ -76,7 +100,7 @@ const SignIn = ({ classes, history }) => {
             </Grid>
           </Form>
         </CenteredContainer>
-      )}
+      }
     </Mutation>
   )
 }
